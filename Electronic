@@ -28,3 +28,11 @@ const int distanceSensor = A1;
 int puzzleIndex = 0;
 String puzzleCode = "1234";
 WiFiClient client;
+
+void sendNumberToLock(char num) {
+    HTTPClient http;
+    String url = String(lockServer) + "?num=" + num;
+    http.begin(client, url);
+    http.GET();
+    http.end();
+}
