@@ -67,3 +67,13 @@ void solvePuzzle4() {
         sendNumberToLock(puzzleCode[puzzleIndex++]);
     }
 }
+
+server.on("/update", HTTP_GET, []() {
+    String num = server.arg("num");
+    if (num.length() == 1 && puzzleIndex < 4) {
+        receivedCode[puzzleIndex] = num[0];
+        digitalWrite(segmentPins[puzzleIndex], HIGH);
+        puzzleIndex++;
+    }
+    server.send(200, "text/plain", receivedCode);
+});
